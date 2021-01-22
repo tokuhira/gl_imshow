@@ -24,15 +24,16 @@ target_link_libraries(main_app ${OpenCV_LIBS})
 
 find_package(OpenGL REQUIRED)
 target_include_directories(main_app PUBLIC ${OPENGL_INCLUDE_DIR})
-target_link_libraries(main_app opengl32)
+target_link_libraries(main_app OpenGL::GL)
 
 find_package(glfw3 REQUIRED)
+target_include_directories(main_app PUBLIC ${GLFW_INCLUDE_DIR})
 target_link_libraries(main_app glfw)
 
 find_package(GLEW)
 if(GLEW_FOUND)
     include_directories(${GLEW_INCLUDE_DIRS})
-    link_libraries(${GLEW_LIBRARIES})
+    target_link_libraries(main_app GLEW::GLEW)
 else()
     set(GLEW_INCLUDE_DIR "" CACHE PATH "Path to glew's include directory")
     set(GLEW_LIBRARY_DIR "" CACHE PATH "Path to glew's library directory")
